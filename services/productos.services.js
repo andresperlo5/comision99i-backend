@@ -1,36 +1,56 @@
 const ProductModel = require("../models/producto.model");
 
 const obtenerProductos = async () => {
-  const productos = await ProductModel.find();
-  return productos;
+  try {
+    const productos = await ProductModel.find();
+    return productos;
+  } catch (error) {
+    return error;
+  }
 };
 
 const obtenerProductoPorId = async (idProducto) => {
-  const producto = await ProductModel.findOne({ _id: idProducto });
-  return producto;
+  try {
+    const producto = await ProductModel.findOne({ _id: idProducto });
+    return producto;
+  } catch (error) {
+    return error;
+  }
 };
 
 const crearProducto = async (body) => {
-  const nuevoProducto = new ProductModel(body);
-  await nuevoProducto.save();
-  return nuevoProducto;
+  try {
+    const nuevoProducto = new ProductModel(body);
+    await nuevoProducto.save();
+    return nuevoProducto;
+  } catch (error) {
+    return error;
+  }
 };
 
 const editarProductoPorId = async (idProducto, body) => {
-  const productoModificado = await ProductModel.findByIdAndUpdate(
-    { _id: idProducto },
-    body,
-    { new: true }
-  );
+  try {
+    const productoModificado = await ProductModel.findByIdAndUpdate(
+      { _id: idProducto },
+      body,
+      { new: true }
+    );
 
-  return productoModificado;
+    return productoModificado;
+  } catch (error) {
+    return error;
+  }
 };
 
 const borradoFisicoProductoPorId = async (idProducto) => {
-  await ProductModel.findByIdAndDelete({ _id: idProducto });
-  return {
-    msg: "Producto Eliminado",
-  };
+  try {
+    await ProductModel.findByIdAndDelete({ _id: idProducto });
+    return {
+      msg: "Producto Eliminado",
+    };
+  } catch (error) {
+    return error;
+  }
 };
 
 module.exports = {

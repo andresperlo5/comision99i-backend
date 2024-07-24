@@ -1,42 +1,67 @@
 const servicioProductos = require("../services/productos.services");
 /* GET de todos los productos*/
 const obtenerTodosLosProductos = async (req, res) => {
-  /* controlador */
-  const productos = await servicioProductos.obtenerProductos();
-  res.json(productos);
+  try {
+    /* controlador */
+    const productos = await servicioProductos.obtenerProductos();
+    res.status(200).json(productos);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error);
+  }
 };
 
 /* GET de un solo producto */
 const obtenerUnProducto = async (req, res) => {
-  const resultado = await servicioProductos.obtenerProductoPorId(
-    req.params.idProducto
-  );
+  try {
+    const resultado = await servicioProductos.obtenerProductoPorId(
+      req.params.idProducto
+    );
 
-  res.json(resultado);
+    res.status(200).json(resultado);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error);
+  }
 };
 
 /* POST crear un producto */
 const nuevoProducto = async (req, res) => {
-  const resultado = await servicioProductos.crearProducto(req.body);
-  res.json({ msg: "Producto creado con exito", resultado });
+  try {
+    const resultado = await servicioProductos.crearProducto(req.body);
+    res.status(201).json({ msg: "Producto creado con exito", resultado });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error);
+  }
 };
 
 /* PUT editar un producto */
 const productoEditado = async (req, res) => {
-  const resultado = await servicioProductos.editarProductoPorId(
-    req.params.idProducto,
-    req.body
-  );
+  try {
+    const resultado = await servicioProductos.editarProductoPorId(
+      req.params.idProducto,
+      req.body
+    );
 
-  res.json(resultado);
+    res.status(200).json(resultado);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error);
+  }
 };
 
 /* DELETE borrar un producto */
 const productoEliminado = async (req, res) => {
-  const resultado = await servicioProductos.borradoFisicoProductoPorId(
-    req.params.idProducto
-  );
-  res.json({ msg: resultado.msg });
+  try {
+    const resultado = await servicioProductos.borradoFisicoProductoPorId(
+      req.params.idProducto
+    );
+    res.status(200).json({ msg: resultado.msg });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error);
+  }
 };
 
 module.exports = {
