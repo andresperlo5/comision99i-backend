@@ -1,5 +1,7 @@
 const UsuarioModel = require("../models/usuarrios.model");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const { darLaBienvenidaUsuarioNuevo } = require("../helpers/mensajesMail");
 
 const obtenerTodosLosUsuarios = async () => {
   try {
@@ -27,6 +29,8 @@ const altaDeUsuario = async (body) => {
     nuevoUsuario.contrasenia = bcrypt.hashSync(nuevoUsuario.contrasenia, salt);
 
     await nuevoUsuario.save();
+    await darLaBienvenidaUsuarioNuevo();
+
     return nuevoUsuario;
   } catch (error) {
     return error;
@@ -52,9 +56,17 @@ const inicioDeUsuario = async (body) => {
     );
 
     if (verificarContrasenia) {
+      const payload = {
+        _id: usuario._id,
+        rol: usuario.rol,
+      };
+
+      const token = jwt.sign(payload, process.env.JWT_SECRET);
+
       return {
         msg: "Usuario Logueado",
         statusCode: 200,
+        token,
       };
     } else {
       return {

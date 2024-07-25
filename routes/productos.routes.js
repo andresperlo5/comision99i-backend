@@ -6,11 +6,12 @@ const {
   productoEditado,
   productoEliminado,
 } = require("../controllers/productos.controllers");
+const auth = require("../middlewares/auth");
 
 const router = express.Router();
 
 /* GET */
-router.get("/", obtenerTodosLosProductos);
+router.get("/", auth("usuario"), obtenerTodosLosProductos);
 router.get("/:idProducto", obtenerUnProducto);
 
 /* POST */
