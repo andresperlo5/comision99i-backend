@@ -20,6 +20,11 @@ const ProductSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+  imagen: {
+    type: String,
+    default:
+      "https://imgv3.fotor.com/images/share/fotor-ai-generate-a-lifelike-dragon.jpg",
+  },
 });
 
 const ProductModel = mongoose.model("products", ProductSchema);

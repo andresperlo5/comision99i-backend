@@ -5,8 +5,11 @@ const {
   nuevoProducto,
   productoEditado,
   productoEliminado,
+  agregarOactualizarImgProducto,
+  pagarCarritoDeProductos,
 } = require("../controllers/productos.controllers");
 const auth = require("../middlewares/auth");
+const multer = require("../middlewares/multer");
 
 const router = express.Router();
 
@@ -16,6 +19,15 @@ router.get("/:idProducto", obtenerUnProducto);
 
 /* POST */
 router.post("/", nuevoProducto);
+
+//Agregar o Actualizar IMAGEN
+router.post(
+  "/agregarImg/:idProducto",
+  multer.single("image"),
+  agregarOactualizarImgProducto
+);
+
+router.post("/pagar", pagarCarritoDeProductos);
 
 /* PUT */
 router.put("/:idProducto", productoEditado);

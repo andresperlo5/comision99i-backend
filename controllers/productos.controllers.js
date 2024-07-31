@@ -64,10 +64,39 @@ const productoEliminado = async (req, res) => {
   }
 };
 
+const agregarOactualizarImgProducto = async (req, res) => {
+  try {
+    const result = await servicioProductos.agregarActulizarImg(
+      req.file,
+      req.params.idProducto
+    );
+
+    if (result.statusCode === 200) {
+      res.status(200).json({ msg: "Imagen cargada con exito" });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const pagarCarritoDeProductos = async (req, res) => {
+  try {
+    const result = await servicioProductos.pagoMP(req.body);
+
+    if (result.statusCode === 200) {
+      return res.status(200).json({ url: result.urlMP });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 module.exports = {
   obtenerTodosLosProductos,
   obtenerUnProducto,
   nuevoProducto,
   productoEditado,
   productoEliminado,
+  agregarOactualizarImgProducto,
+  pagarCarritoDeProductos,
 };
