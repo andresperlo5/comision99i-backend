@@ -20,6 +20,12 @@ const UsuarioSchema = new Schema({
     type: Boolean,
     default: false,
   },
+  idCarrito: {
+    type: String,
+  },
+  idFavorito: {
+    type: String,
+  },
 });
 
 UsuarioSchema.methods.toJSON = function () {

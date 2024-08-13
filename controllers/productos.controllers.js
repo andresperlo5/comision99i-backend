@@ -64,6 +64,32 @@ const productoEliminado = async (req, res) => {
   }
 };
 
+const deshabilitarProducto = async (req, res) => {
+  try {
+    const result = await servicioProductos.borradoLogicoProductoPorId(
+      req.params.idProducto
+    );
+    if (result.statusCode === 200) {
+      res.status(200).json({ msg: result.msg });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const habilitarProductoPorId = async (req, res) => {
+  try {
+    const result = await servicioProductos.habilitarProducto(
+      req.params.idProducto
+    );
+    if (result.statusCode === 200) {
+      res.status(200).json({ msg: result.msg });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const agregarOactualizarImgProducto = async (req, res) => {
   try {
     const result = await servicioProductos.agregarActulizarImg(
@@ -91,12 +117,51 @@ const pagarCarritoDeProductos = async (req, res) => {
   }
 };
 
+const agregarProdFav = async (req, res) => {
+  console.log("endpoint agregar");
+  try {
+    const result = await servicioProductos.agregarProductoFavorito(
+      req.idUsuario,
+      req.params.idProducto
+    );
+
+    if (result.statusCode === 200) {
+      res.status(200).json({ msg: result.msg });
+    } else {
+      res.status(400).json({ msg: result.msg, status: 400 });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const agregarProdCart = async (req, res) => {
+  try {
+    const result = await servicioProductos.agregarProductoCarrito(
+      req.idUsuario,
+      req.params.idProducto
+    );
+
+    if (result.statusCode === 200) {
+      res.status(200).json({ msg: result.msg });
+    } else {
+      res.status(400).json({ msg: result.msg, status: 400 });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 module.exports = {
   obtenerTodosLosProductos,
   obtenerUnProducto,
   nuevoProducto,
   productoEditado,
   productoEliminado,
+  deshabilitarProducto,
+  habilitarProductoPorId,
   agregarOactualizarImgProducto,
   pagarCarritoDeProductos,
+  agregarProdFav,
+  agregarProdCart,
 };
