@@ -128,9 +128,12 @@ const pagoMP = async (bodyItems) => {
           },
         ],
         back_urls: {
-          success: "frontEnd/success",
-          failure: "frontEnd/failure",
-          pending: "frontEnd/pending",
+          success:
+            "https://react-comision99i.vercel.app/usuario-carrito/success",
+          failure:
+            "https://react-comision99i.vercel.app/usuario-carrito/failure",
+          pending:
+            "https://react-comision99i.vercel.app/usuario-carrito/pending",
         },
         auto_return: "approved",
       },
